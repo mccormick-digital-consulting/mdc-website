@@ -1,67 +1,103 @@
-// ===== Navbar scroll effect =====
-const navbar = document.getElementById('navbar');
-window.addEventListener('scroll', () => {
-    navbar.classList.toggle('scrolled', window.scrollY > 50);
-});
+// Wait for DOM to load
+document.addEventListener("DOMContentLoaded", () => {
+    
+    // 1. Initialize Lenis (Smooth Scrolling)
+    const lenis = new Lenis({
+        duration: 1.2,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), 
+        direction: 'vertical', 
+        gestureDirection: 'vertical', 
+        smooth: true,
+        mouseMultiplier: 1,
+        smoothTouch: false,
+        touchMultiplier: 2,
+        infinite: false,
+    });
 
-// ===== Animated counter =====
-function animateCounter(el) {
-    const target = parseInt(el.getAttribute('data-target'));
-    const duration = 2000;
-    const start = performance.now();
+    // 2. Synchronize Lenis with GSAP ScrollTrigger
+    lenis.on('scroll', ScrollTrigger.update);
+    
+    gsap.ticker.add((time)=>{
+      lenis.raf(time * 1000);
+    });
+    
+    gsap.ticker.lagSmoothing(0);
 
-    function update(now) {
-        const elapsed = now - start;
-        const progress = Math.min(elapsed / duration, 1);
-        // Ease out cubic
-        const eased = 1 - Math.pow(1 - progress, 3);
-        el.textContent = Math.floor(eased * target);
-
-        if (progress < 1) {
-            requestAnimationFrame(update);
-        } else {
-            el.textContent = target;
-        }
-    }
-    requestAnimationFrame(update);
-}
-
-// ===== Intersection Observer for animations =====
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-
-            // Trigger counter animation
-            const counter = entry.target.querySelector('.stat-number');
-            if (counter && !counter.dataset.animated) {
-                counter.dataset.animated = 'true';
-                animateCounter(counter);
+    // 3. GSAP Text Reveal Animations
+    // Grab every element with the 'reveal-text' class
+    const revealElements = document.querySelectorAll('.reveal-text');
+    
+    revealElements.forEach((el) => {
+        gsap.to(el, {
+            y: 0,
+            opacity: 1,
+            duration: 1.2,
+            ease: "power4.out",
+            scrollTrigger: {
+                trigger: el.parentElement, // The parent is the overflow: hidden mask
+                start: "top 95%",          // Trigger when the top of the Parent hits 85% of viewport
+                toggleActions: "play reverse play reverse", // Re-animate if scrolled up & down
             }
-
-            observer.unobserve(entry.target);
-        }
+        });
     });
-}, { threshold: 0.15 });
 
-// Apply fade-in to sections and cards
-document.addEventListener('DOMContentLoaded', () => {
-    const animatedElements = document.querySelectorAll(
-        '.problem-card, .service-card, .process-step, .hero-stats, .cta-box'
-    );
-    animatedElements.forEach(el => {
-        el.classList.add('fade-in');
-        observer.observe(el);
+    // 4. Subtle Parallax for Foreign Accents (Japanese / Arabic Backgrounds)
+    const kanjiAccents = document.querySelectorAll('.bg-accent-kanji');
+    kanjiAccents.forEach((el) => {
+        gsap.to(el, {
+            y: -150,
+            ease: "none",
+            scrollTrigger: {
+                trigger: el.parentElement,
+                start: "top bottom",
+                end: "bottom top",
+                scrub: true
+            }
+        });
     });
-});
 
-// ===== Smooth scroll for anchor links =====
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
+    const arabicAccents = document.querySelectorAll('.bg-accent-arabic');
+    arabicAccents.forEach((el) => {
+        gsap.to(el, {
+            y: -250,
+            ease: "none",
+            scrollTrigger: {
+                trigger: el.parentElement,
+                start: "top bottom",
+                end: "bottom top",
+                scrub: true
+            }
+        });
     });
+
+    const amazighAccents = document.querySelectorAll('.bg-accent-amazigh');
+    amazighAccents.forEach((el) => {
+        gsap.to(el, {
+            y: -200, // Slightly different speed for variation
+            ease: "none",
+            scrollTrigger: {
+                trigger: el.parentElement,
+                start: "top bottom",
+                end: "bottom top",
+                scrub: true
+            }
+        });
+    });
+
+    // 5. Parallax effect for the Services (Arsenal)
+    const serviceRows = document.querySelectorAll('.service-row');
+    serviceRows.forEach((row, i) => {
+        gsap.from(row, {
+            opacity: 0,
+            y: 50,
+            duration: 1,
+            ease: "power3.out",
+            scrollTrigger: {
+                trigger: row,
+                start: "top 90%",
+                toggleActions: "play none none reverse"
+            }
+        });
+    });
+
 });

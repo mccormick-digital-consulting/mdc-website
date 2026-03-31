@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Onboarding | McCormick Digital Consulting</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .onboarding-container {
+            max-width: 800px;
+            margin: 120px auto 80px;
+            padding: 0 24px;
+        }
+
+        .step-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 40px;
+            margin-bottom: 32px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .step-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 24px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 16px;
+        }
+
+        .step-number {
+            background: var(--text-primary);
+            color: var(--bg-primary);
+            width: 40px;
+            height: 40px;
+            border-radius: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.2rem;
+        }
+
+        .step-title {
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 14px 16px;
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-family: inherit;
+            font-size: 1rem;
+            transition: all 0.2s;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--accent-1);
+            box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.2);
+        }
+
+        .help-text {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 6px;
+            display: block;
+        }
+
+        .payment-box {
+            text-align: center;
+            padding: 30px;
+            background: linear-gradient(170deg, rgba(108, 92, 231, 0.05) 0%, var(--bg-primary) 40%);
+            border: 1px solid rgba(108, 92, 231, 0.35);
+            border-radius: 12px;
+            margin-top: 24px;
+        }
+
+        .total-amount {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin: 16px 0;
+            margin: 16px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAV -->
+    <nav id="navbar" class="scrolled">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                MDC.
+            </a>
+        </div>
+    </nav>
+
+    <!-- ONBOARDING CONTENT -->
+    <main class="onboarding-container">
+        <div style="text-align: center; margin-bottom: 48px;">
+            <h1 style="font-size: 2.5rem; margin-bottom: 16px; text-transform: uppercase;">MDC Initiation Gate</h1>
+            <p style="color: var(--text-secondary); font-size: 1.1rem; max-width: 600px; margin: 0 auto;">Please complete the two steps below so our media team can immediately begin Phase 1 of your campaign architecture.</p>
+        </div>
+
+        <!-- STEP 1: RETAINER -->
+        <div class="step-card">
+            <div class="step-header">
+                <div class="step-number">1</div>
+                <h2 class="step-title">Secure Campaign Spot</h2>
+            </div>
+            <p style="color: var(--text-secondary);">Your initial invoice covers the Phase 1 tracking integration, brand-matched landing page deployment, and your first 30 days of active ad management & optimization.</p>
+            
+            <div class="payment-box">
+                <span style="color: var(--text-muted); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px;">Initial Retainer</span>
+                <div class="total-amount">$2,500</div>
+                <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 24px;">Month-to-month thereafter ($1,500/mo). No lock-in contracts.</p>
+                <!-- REPLACE # WITH YOUR STRIPE PAYMENT LINK -->
+                <a href="https://buy.stripe.com/3cI28s4ioebQ94U4bv0gw00" class="btn btn-primary btn-lg" style="width: 100%; max-width: 300px;">Pay Securely via Stripe</a>
+            </div>
+        </div>
+
+        <!-- STEP 2: TECHNICAL INTAKE -->
+        <div class="step-card">
+            <div class="step-header">
+                <div class="step-number">2</div>
+                <h2 class="step-title">Technical Intake Form</h2>
+            </div>
+            <p style="color: var(--text-secondary); margin-bottom: 32px;">We need access to your ad accounts to plug the leaky traffic and begin tracking.</p>
+
+            <form action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST">
+                
+                <div class="form-group">
+                    <label class="form-label">Primary Contact Name</label>
+                    <input type="text" name="name" class="form-input" required placeholder="John Doe">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Primary Cell Phone</label>
+                    <input type="tel" name="phone" class="form-input" required placeholder="(555) 555-5555">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Google Ads Customer ID</label>
+                    <input type="text" name="google_ads_id" class="form-input" placeholder="XXX-XXX-XXXX">
+                    <div class="help-text" style="background: rgba(255,255,255,0.05); padding: 12px; border-radius: 6px; margin-top: 10px;">
+                        <strong>How to find this:</strong><br>
+                        1. Log into your Google Ads account.<br>
+                        2. Look in the top right corner, near your profile picture.<br>
+                        3. Copy the 10-digit number (format: XXX-XXX-XXXX).
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Meta (Facebook) Business Manager ID</label>
+                    <input type="text" name="meta_bm_id" class="form-input" placeholder="15-digit number">
+                    <div class="help-text" style="background: rgba(255,255,255,0.05); padding: 12px; border-radius: 6px; margin-top: 10px;">
+                        <strong>How to find this:</strong><br>
+                        1. Go to business.facebook.com/settings<br>
+                        2. Scroll down the left menu and click "Business Info".<br>
+                        3. Under "Business Manager Info" at the top, copy your Business Manager ID.
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Target Geo-Radius</label>
+                    <input type="text" name="target_geo" class="form-input" required placeholder="e.g., 20 miles around Scottsdale">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Brand Assets (Logos/Photos)</label>
+                    <input type="url" name="brand_assets" class="form-input" placeholder="https://drive.google.com/...">
+                    <span class="help-text">Paste a Google Drive or Dropbox link containing your high-res logo and any preferred brand imagery.</span>
+                </div>
+
+                <div class="form-group" style="margin-top: 40px;">
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Submit Technical Intake</button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-content" style="justify-content: center;">
+                <span class="footer-copy">© 2026 McCormick Digital Consulting. Secure Encrypted Onboarding.</span>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+    <!-- Brandin Orange Background Circle -->
+    <circle cx="256" cy="256" r="236" fill="#ff4500" />
+    
+    <!-- Stylized Geometric Amazigh Freeman (Yaz) Symbol with Flat Hard Edges -->
+    <g fill="none" stroke="#ffffff" stroke-width="65" stroke-linecap="butt" stroke-linejoin="miter">
+        <!-- Top Arc (starts and ends flat, curves through center) -->
+        <path d="M 140,165 C 140,256 372,256 372,165" />
+        
+        <!-- Bottom Arc (starts and ends flat, curves through center) -->
+        <path d="M 140,347 C 140,256 372,256 372,347" />
+        
+        <!-- Central Sharp Pillar -->
+        <line x1="256" y1="100" x2="256" y2="412" />
+    </g>
+</svg>
