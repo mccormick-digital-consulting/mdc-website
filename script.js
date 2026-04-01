@@ -128,105 +128,57 @@ document.addEventListener("DOMContentLoaded", () => {
         ctx.fillStyle = '#FF4500';
         ctx.fillRect(0, 0, texW, texH);
 
-        // Torn edges top + bottom
+        // Torn edges top + bottom (ragged cloth edges)
         ctx.fillStyle = '#050505';
         for (let x = 0; x < texW; x += 4) {
-            ctx.fillRect(x, 0, 4, Math.random() * 45 + 10);
-            ctx.fillRect(x, texH - (Math.random() * 45 + 10), 4, 60);
+            ctx.fillRect(x, 0, 4, Math.random() * 40 + 8);
+            ctx.fillRect(x, texH - (Math.random() * 40 + 8), 4, 55);
         }
 
-        // War-torn holes (scattered transparent-looking burn marks)
-        const holeCount = 18;
-        for (let h = 0; h < holeCount; h++) {
-            const hx = Math.random() * texW;
-            const hy = 100 + Math.random() * (texH - 200);
-            const hw = 20 + Math.random() * 60;
-            const hh = 15 + Math.random() * 40;
-            // Dark hole
-            ctx.fillStyle = '#050505';
-            ctx.beginPath();
-            ctx.ellipse(hx, hy, hw, hh, Math.random() * Math.PI, 0, Math.PI * 2);
-            ctx.fill();
-            // Burnt edge ring
-            ctx.strokeStyle = '#8B2500';
-            ctx.lineWidth = 3;
-            ctx.beginPath();
-            ctx.ellipse(hx, hy, hw + 4, hh + 3, Math.random() * Math.PI, 0, Math.PI * 2);
-            ctx.stroke();
-        }
-
-        // Smaller tears/rips
-        for (let t = 0; t < 12; t++) {
-            ctx.strokeStyle = '#050505';
-            ctx.lineWidth = 2 + Math.random() * 4;
-            ctx.beginPath();
-            const sx = Math.random() * texW;
-            const sy = 80 + Math.random() * (texH - 160);
-            ctx.moveTo(sx, sy);
-            for (let s = 0; s < 4; s++) {
-                ctx.lineTo(sx + (Math.random() - 0.5) * 80, sy + (Math.random() - 0.5) * 50);
-            }
-            ctx.stroke();
-        }
-
-        // Main text - large, filling top to bottom
+        // Single line of text - each word fills top to bottom of flag
         ctx.fillStyle = '#050505';
         ctx.textBaseline = 'middle';
         ctx.textAlign = 'left';
 
-        // English trade words (primary)
+        // English trade words (primary) + multilingual sprinkles
         const engWords = [
             'SEO', 'AEO', 'MEDIA BUYING', 'COPYWRITING', 'GOOGLE ADS', 'BING ADS',
             'META ADS', 'SOCIAL MEDIA', 'BOOKKEEPING', 'GRAPHIC DESIGN', 'EXCEL',
             'EMAIL MARKETING', 'WEB DEV', 'CONTENT', 'VIRTUAL ASSISTANT'
         ];
-        // Multilingual sprinkles
         const foreignWords = [
             '\u062A\u0633\u0648\u064A\u0642',           // Arabic: Marketing
-            '\u0625\u0639\u0644\u0627\u0646\u0627\u062A', // Arabic: Ads
             '\u30C7\u30B6\u30A4\u30F3',                   // Japanese: Design
-            '\u5E83\u544A',                                 // Japanese: Advertising
             '\u8425\u9500',                                 // Chinese: Marketing
-            '\u7F51\u7AD9',                                 // Chinese: Website
             '\u2D5C\u2D30\u2D4E\u2D53\u2D54\u2D5C',       // Berber: Commerce
-            '\u2D30\u2D4E\u2D30\u2D63\u2D49\u2D56',       // Berber: Amazigh
             '\u041C\u0430\u0440\u043A\u0435\u0442\u0438\u043D\u0433', // Ukrainian: Marketing
-            '\u0420\u0435\u043A\u043B\u0430\u043C\u0430',             // Ukrainian: Advertising
+            '\u5E83\u544A',                                 // Japanese: Advertising
+            '\u0625\u0639\u0644\u0627\u0646\u0627\u062A', // Arabic: Ads
+            '\u7F51\u7AD9',                                 // Chinese: Website
+            '\u0420\u0435\u043A\u043B\u0430\u043C\u0430', // Ukrainian: Advertising
             '\u5275\u9020',                                 // Japanese: Creation
-            '\u0627\u0633\u062A\u0631\u0627\u062A\u064A\u062C\u064A\u0629' // Arabic: Strategy
         ];
 
-        // Build long repeating text strip (3x wide for seamless scroll)
+        // Build repeating strip with foreign words sprinkled in
         const allWords = [];
         for (let rep = 0; rep < 3; rep++) {
             for (let w = 0; w < engWords.length; w++) {
                 allWords.push(engWords[w]);
-                // Sprinkle foreign word every 3rd English word
-                if (w % 3 === 2 && foreignWords.length > 0) {
-                    allWords.push(foreignWords[(w + rep * 5) % foreignWords.length]);
+                if (w % 3 === 2) {
+                    allWords.push(foreignWords[(w + rep * 3) % foreignWords.length]);
                 }
             }
         }
 
-        // Row 1 - top half, large text
-        ctx.font = '900 110px Inter, Arial, sans-serif';
+        // Single row - text sized to fill flag height (top to bottom)
+        ctx.font = '900 ' + Math.floor(texH * 0.55) + 'px Inter, Arial, sans-serif';
         let xPos = 30;
-        const row1Words = allWords.slice(0, Math.floor(allWords.length / 2));
-        for (const word of row1Words) {
-            ctx.fillText(word, xPos, texH * 0.35);
-            xPos += ctx.measureText(word).width + 60;
-            // Bullet separator
-            ctx.fillText('\u2022', xPos - 40, texH * 0.35);
-        }
-
-        // Row 2 - bottom half, large text
-        ctx.font = '900 110px Inter, Arial, sans-serif';
-        xPos = 80;
-        const row2Words = allWords.slice(Math.floor(allWords.length / 2));
-        for (const word of row2Words) {
-            ctx.fillText(word, xPos, texH * 0.68);
-            xPos += ctx.measureText(word).width + 60;
-            ctx.fillText('\u2022', xPos - 40, texH * 0.68);
+        for (const word of allWords) {
+            ctx.fillText(word, xPos, texH * 0.52);
+            xPos += ctx.measureText(word).width + 80;
+            ctx.font = '900 ' + Math.floor(texH * 0.35) + 'px Inter, Arial, sans-serif';
+            ctx.fillText('\u2022', xPos - 55, texH * 0.52);
+            ctx.font = '900 ' + Math.floor(texH * 0.55) + 'px Inter, Arial, sans-serif';
         }
 
         // Fabric noise texture
@@ -262,8 +214,8 @@ document.addEventListener("DOMContentLoaded", () => {
             requestAnimationFrame(animate);
             time += 0.012;
 
-            // Scroll the texture horizontally
-            texture.offset.x = (time * 0.03) % 1.0;
+            // Scroll the texture horizontally (slow)
+            texture.offset.x = (time * 0.015) % 1.0;
 
             const pos = geo.attributes.position;
             for (let i = 0; i < pos.count; i++) {
