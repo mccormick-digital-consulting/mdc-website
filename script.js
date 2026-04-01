@@ -140,54 +140,48 @@ document.addEventListener("DOMContentLoaded", () => {
         ctx.textBaseline = 'middle';
         ctx.textAlign = 'left';
 
-        // Full word list: English trades + multilingual versions
+        // Full word list: English trades + specific multilingual swaps
+        // Copywriting = Japanese, Bing Ads = Berber, Media Buying = Chinese, Meta Ads = English
         const wordList = [
-            // English (primary)
-            'SEO', 'AEO', 'MEDIA BUYING', 'COPYWRITING', 'GOOGLE ADS',
-            // Arabic: Marketing
-            '\u062A\u0633\u0648\u064A\u0642',
-            'BING ADS', 'META ADS', 'SOCIAL MEDIA',
-            // Japanese: Design
-            '\u30C7\u30B6\u30A4\u30F3',
+            'SEO', 'AEO',
+            '\u5A92\u4F53\u8D2D\u4E70',               // Chinese: Media Buying
+            '\u30B3\u30D4\u30FC\u30E9\u30A4\u30C6\u30A3\u30F3\u30B0', // Japanese: Copywriting
+            'GOOGLE ADS',
+            '\u062A\u0633\u0648\u064A\u0642',           // Arabic: Marketing
+            '\u2D31\u2D49\u2D4F\u2D33',                 // Berber: Bing
+            'META ADS', 'SOCIAL MEDIA',
+            '\u30C7\u30B6\u30A4\u30F3',                 // Japanese: Design
             'BOOKKEEPING', 'GRAPHIC DESIGN', 'EXCEL',
-            // Chinese: Marketing
-            '\u8425\u9500',
+            '\u8425\u9500',                               // Chinese: Marketing
             'EMAIL MARKETING', 'WEB DEV', 'CONTENT',
-            // Berber: Commerce
-            '\u2D5C\u2D30\u2D4E\u2D53\u2D54\u2D5C',
+            '\u2D5C\u2D30\u2D4E\u2D53\u2D54\u2D5C',     // Berber: Commerce
             'VIRTUAL ASSISTANT', 'BRANDING', 'STRATEGY',
-            // Ukrainian: Marketing
-            '\u041C\u0430\u0440\u043A\u0435\u0442\u0438\u043D\u0433',
+            '\u041C\u0430\u0440\u043A\u0435\u0442\u0438\u043D\u0433', // Ukrainian: Marketing
             'ANALYTICS', 'PPC', 'AUTOMATION',
-            // Japanese: Advertising
-            '\u5E83\u544A',
+            '\u5E83\u544A',                               // Japanese: Advertising
             'LEAD GEN', 'CRM', 'FUNNELS',
-            // Arabic: Ads
-            '\u0625\u0639\u0644\u0627\u0646\u0627\u062A',
+            '\u0625\u0639\u0644\u0627\u0646\u0627\u062A', // Arabic: Ads
             'RETARGETING', 'CONVERSION', 'ROI',
-            // Chinese: Website
-            '\u7F51\u7AD9',
+            '\u7F51\u7AD9',                               // Chinese: Website
             'LANDING PAGES', 'A/B TESTING', 'DATA',
-            // Ukrainian: Advertising
-            '\u0420\u0435\u043A\u043B\u0430\u043C\u0430',
+            '\u0420\u0435\u043A\u043B\u0430\u043C\u0430', // Ukrainian: Advertising
             'CAMPAIGNS', 'CREATIVE', 'OUTREACH',
-            // Japanese: Creation
-            '\u5275\u9020',
+            '\u5275\u9020',                               // Japanese: Creation
             'CONSULTING', 'GROWTH', 'DIGITAL TRADES',
-            // Arabic: Strategy
-            '\u0627\u0633\u062A\u0631\u0627\u062A\u064A\u062C\u064A\u0629',
-            'SEO', 'MEDIA BUYING', 'GOOGLE ADS', 'META ADS',
-            // Berber: Amazigh
-            '\u2D30\u2D4E\u2D30\u2D63\u2D49\u2D56',
-            'COPYWRITING', 'EMAIL MARKETING', 'GRAPHIC DESIGN',
-            // Chinese: Creativity
-            '\u521B\u610F',
+            '\u0627\u0633\u062A\u0631\u0627\u062A\u064A\u062C\u064A\u0629', // Arabic: Strategy
+            'SEO',
+            '\u5A92\u4F53\u8D2D\u4E70',               // Chinese: Media Buying (repeat)
+            'GOOGLE ADS', 'META ADS',
+            '\u2D30\u2D4E\u2D30\u2D63\u2D49\u2D56',     // Berber: Amazigh
+            '\u30B3\u30D4\u30FC\u30E9\u30A4\u30C6\u30A3\u30F3\u30B0', // Japanese: Copywriting (repeat)
+            'EMAIL MARKETING', 'GRAPHIC DESIGN',
+            '\u521B\u610F',                               // Chinese: Creativity
             'WEB DEV', 'SOCIAL MEDIA', 'AEO', 'BOOKKEEPING',
-            // Ukrainian: Design
-            '\u0414\u0438\u0437\u0430\u0439\u043D',
-            'VIRTUAL ASSISTANT', 'BING ADS', 'CONTENT', 'EXCEL',
-            // Japanese: Business
-            '\u30D3\u30B8\u30CD\u30B9',
+            '\u0414\u0438\u0437\u0430\u0439\u043D',     // Ukrainian: Design
+            'VIRTUAL ASSISTANT',
+            '\u2D31\u2D49\u2D4F\u2D33',                 // Berber: Bing (repeat)
+            'CONTENT', 'EXCEL',
+            '\u30D3\u30B8\u30CD\u30B9',                 // Japanese: Business
             'BRANDING', 'STRATEGY', 'ANALYTICS', 'AUTOMATION',
         ];
 
