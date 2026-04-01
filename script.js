@@ -116,8 +116,8 @@ document.addEventListener("DOMContentLoaded", () => {
         const segsY = 30;
         const geo = new THREE.PlaneGeometry(flagW, flagH, segsX, segsY);
 
-        // --- SCROLLING TEXTURE (extra wide for seamless tiling) ---
-        const texW = 8192;
+        // --- SCROLLING TEXTURE (very wide for long seamless scroll) ---
+        const texW = 16384;
         const texH = 1024;
         const texCanvas = document.createElement('canvas');
         texCanvas.width = texW;
@@ -140,45 +140,69 @@ document.addEventListener("DOMContentLoaded", () => {
         ctx.textBaseline = 'middle';
         ctx.textAlign = 'left';
 
-        // English trade words (primary) + multilingual sprinkles
-        const engWords = [
-            'SEO', 'AEO', 'MEDIA BUYING', 'COPYWRITING', 'GOOGLE ADS', 'BING ADS',
-            'META ADS', 'SOCIAL MEDIA', 'BOOKKEEPING', 'GRAPHIC DESIGN', 'EXCEL',
-            'EMAIL MARKETING', 'WEB DEV', 'CONTENT', 'VIRTUAL ASSISTANT'
-        ];
-        const foreignWords = [
-            '\u062A\u0633\u0648\u064A\u0642',           // Arabic: Marketing
-            '\u30C7\u30B6\u30A4\u30F3',                   // Japanese: Design
-            '\u8425\u9500',                                 // Chinese: Marketing
-            '\u2D5C\u2D30\u2D4E\u2D53\u2D54\u2D5C',       // Berber: Commerce
-            '\u041C\u0430\u0440\u043A\u0435\u0442\u0438\u043D\u0433', // Ukrainian: Marketing
-            '\u5E83\u544A',                                 // Japanese: Advertising
-            '\u0625\u0639\u0644\u0627\u0646\u0627\u062A', // Arabic: Ads
-            '\u7F51\u7AD9',                                 // Chinese: Website
-            '\u0420\u0435\u043A\u043B\u0430\u043C\u0430', // Ukrainian: Advertising
-            '\u5275\u9020',                                 // Japanese: Creation
+        // Full word list: English trades + multilingual versions
+        const wordList = [
+            // English (primary)
+            'SEO', 'AEO', 'MEDIA BUYING', 'COPYWRITING', 'GOOGLE ADS',
+            // Arabic: Marketing
+            '\u062A\u0633\u0648\u064A\u0642',
+            'BING ADS', 'META ADS', 'SOCIAL MEDIA',
+            // Japanese: Design
+            '\u30C7\u30B6\u30A4\u30F3',
+            'BOOKKEEPING', 'GRAPHIC DESIGN', 'EXCEL',
+            // Chinese: Marketing
+            '\u8425\u9500',
+            'EMAIL MARKETING', 'WEB DEV', 'CONTENT',
+            // Berber: Commerce
+            '\u2D5C\u2D30\u2D4E\u2D53\u2D54\u2D5C',
+            'VIRTUAL ASSISTANT', 'BRANDING', 'STRATEGY',
+            // Ukrainian: Marketing
+            '\u041C\u0430\u0440\u043A\u0435\u0442\u0438\u043D\u0433',
+            'ANALYTICS', 'PPC', 'AUTOMATION',
+            // Japanese: Advertising
+            '\u5E83\u544A',
+            'LEAD GEN', 'CRM', 'FUNNELS',
+            // Arabic: Ads
+            '\u0625\u0639\u0644\u0627\u0646\u0627\u062A',
+            'RETARGETING', 'CONVERSION', 'ROI',
+            // Chinese: Website
+            '\u7F51\u7AD9',
+            'LANDING PAGES', 'A/B TESTING', 'DATA',
+            // Ukrainian: Advertising
+            '\u0420\u0435\u043A\u043B\u0430\u043C\u0430',
+            'CAMPAIGNS', 'CREATIVE', 'OUTREACH',
+            // Japanese: Creation
+            '\u5275\u9020',
+            'CONSULTING', 'GROWTH', 'DIGITAL TRADES',
+            // Arabic: Strategy
+            '\u0627\u0633\u062A\u0631\u0627\u062A\u064A\u062C\u064A\u0629',
+            'SEO', 'MEDIA BUYING', 'GOOGLE ADS', 'META ADS',
+            // Berber: Amazigh
+            '\u2D30\u2D4E\u2D30\u2D63\u2D49\u2D56',
+            'COPYWRITING', 'EMAIL MARKETING', 'GRAPHIC DESIGN',
+            // Chinese: Creativity
+            '\u521B\u610F',
+            'WEB DEV', 'SOCIAL MEDIA', 'AEO', 'BOOKKEEPING',
+            // Ukrainian: Design
+            '\u0414\u0438\u0437\u0430\u0439\u043D',
+            'VIRTUAL ASSISTANT', 'BING ADS', 'CONTENT', 'EXCEL',
+            // Japanese: Business
+            '\u30D3\u30B8\u30CD\u30B9',
+            'BRANDING', 'STRATEGY', 'ANALYTICS', 'AUTOMATION',
         ];
 
-        // Build repeating strip with foreign words sprinkled in
-        const allWords = [];
-        for (let rep = 0; rep < 3; rep++) {
-            for (let w = 0; w < engWords.length; w++) {
-                allWords.push(engWords[w]);
-                if (w % 3 === 2) {
-                    allWords.push(foreignWords[(w + rep * 3) % foreignWords.length]);
-                }
-            }
-        }
-
-        // Single row - text sized to fill flag height (top to bottom)
-        ctx.font = '900 ' + Math.floor(texH * 0.55) + 'px Inter, Arial, sans-serif';
-        let xPos = 30;
-        for (const word of allWords) {
+        // Draw single row - text sized to fill flag height, separated by |
+        const fontSize = Math.floor(texH * 0.52);
+        const sepSize = Math.floor(texH * 0.25);
+        ctx.font = '900 ' + fontSize + 'px Inter, Arial, sans-serif';
+        let xPos = 40;
+        for (const word of wordList) {
+            ctx.font = '900 ' + fontSize + 'px Inter, Arial, sans-serif';
             ctx.fillText(word, xPos, texH * 0.52);
-            xPos += ctx.measureText(word).width + 80;
-            ctx.font = '900 ' + Math.floor(texH * 0.35) + 'px Inter, Arial, sans-serif';
-            ctx.fillText('\u2022', xPos - 55, texH * 0.52);
-            ctx.font = '900 ' + Math.floor(texH * 0.55) + 'px Inter, Arial, sans-serif';
+            xPos += ctx.measureText(word).width + 50;
+            // Simple thin vertical bar separator
+            ctx.fillRect(xPos, texH * 0.2, 6, texH * 0.6);
+            xPos += 50;
         }
 
         // Fabric noise texture
