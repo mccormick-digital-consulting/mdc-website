@@ -92,7 +92,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const scene = new THREE.Scene();
         const rect = canvas.parentElement.getBoundingClientRect();
         const camera = new THREE.PerspectiveCamera(30, rect.width / rect.height, 0.1, 1000);
-        camera.position.set(0, 0, 5);
+        camera.position.set(0, 0, 6);
 
         const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
         renderer.setSize(rect.width, rect.height);
@@ -106,42 +106,44 @@ document.addEventListener("DOMContentLoaded", () => {
         dirLight.position.set(2, 2, 5);
         scene.add(dirLight);
 
-        // Flag geometry - wide horizontal banner
-        const flagW = 8;
-        const flagH = 1.2;
-        const segsX = 80;
-        const segsY = 12;
+        // Flag geometry - extra wide horizontal banner filling viewport
+        const flagW = 12;
+        const flagH = 2.0;
+        const segsX = 100;
+        const segsY = 20;
         const geo = new THREE.PlaneGeometry(flagW, flagH, segsX, segsY);
 
-        // Create canvas texture with text
+        // Create canvas texture with text - all 15 trades
         const texCanvas = document.createElement('canvas');
-        texCanvas.width = 2048;
-        texCanvas.height = 256;
+        texCanvas.width = 4096;
+        texCanvas.height = 512;
         const ctx = texCanvas.getContext('2d');
 
         // Orange background
         ctx.fillStyle = '#FF4500';
         ctx.fillRect(0, 0, texCanvas.width, texCanvas.height);
 
-        // Torn edges - top
+        // Torn edges - top (irregular ripped look)
         ctx.fillStyle = '#050505';
-        for (let x = 0; x < texCanvas.width; x += 8) {
-            const h = Math.random() * 18 + 4;
-            ctx.fillRect(x, 0, 8, h);
+        for (let x = 0; x < texCanvas.width; x += 6) {
+            const h = Math.random() * 30 + 6;
+            ctx.fillRect(x, 0, 6, h);
         }
         // Torn edges - bottom
-        for (let x = 0; x < texCanvas.width; x += 8) {
-            const h = Math.random() * 18 + 4;
-            ctx.fillRect(x, texCanvas.height - h, 8, h);
+        for (let x = 0; x < texCanvas.width; x += 6) {
+            const h = Math.random() * 30 + 6;
+            ctx.fillRect(x, texCanvas.height - h, 6, h);
         }
 
-        // Text
+        // Text - Line 1 (top row of trades)
         ctx.fillStyle = '#050505';
-        ctx.font = '900 90px Inter, Arial, sans-serif';
-        ctx.textAlign = 'left';
+        ctx.font = '900 72px Inter, Arial, sans-serif';
+        ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
-        const text = 'SEO  \u2022  GOOGLE ADS  \u2022  META ADS  \u2022  MEDIA BUYING  \u2022  COPYWRITING  \u2022  AEO  \u2022  EMAIL  \u2022  WEB DEV  \u2022  DESIGN';
-        ctx.fillText(text, 40, texCanvas.height / 2 + 2);
+        const line1 = 'SEO  \u2022  AEO  \u2022  MEDIA BUYING  \u2022  COPYWRITING  \u2022  GOOGLE ADS  \u2022  BING ADS  \u2022  META ADS  \u2022  SOCIAL MEDIA';
+        const line2 = 'BOOKKEEPING  \u2022  GRAPHIC DESIGN  \u2022  EXCEL  \u2022  EMAIL MARKETING  \u2022  WEB DEV  \u2022  CONTENT  \u2022  VIRTUAL ASSISTANT';
+        ctx.fillText(line1, texCanvas.width / 2, texCanvas.height * 0.38);
+        ctx.fillText(line2, texCanvas.width / 2, texCanvas.height * 0.64);
 
         // Fabric noise
         const imgData = ctx.getImageData(0, 0, texCanvas.width, texCanvas.height);

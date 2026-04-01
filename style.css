@@ -227,11 +227,13 @@ p.reveal-text {
 /* ===== 3D FLAG BANNER ===== */
 .flag-section {
     width: 100vw;
-    height: 200px;
+    height: 350px;
     margin: 8vh 0;
     position: relative;
     z-index: 10;
     overflow: hidden;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 #flag-canvas {
