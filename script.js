@@ -84,17 +84,18 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // 5. Parallax effect for the Services (Arsenal)
-    const serviceRows = document.querySelectorAll('.service-row');
-    serviceRows.forEach((row, i) => {
-        gsap.from(row, {
+    // 5. Staggered reveal for Digital Trades grid
+    const tradeCards = document.querySelectorAll('.trade-card');
+    tradeCards.forEach((card, i) => {
+        gsap.from(card, {
             opacity: 0,
-            y: 50,
-            duration: 1,
+            y: 60,
+            duration: 0.8,
+            delay: (i % 3) * 0.1,
             ease: "power3.out",
             scrollTrigger: {
-                trigger: row,
-                start: "top 90%",
+                trigger: card,
+                start: "top 92%",
                 toggleActions: "play none none reverse"
             }
         });
