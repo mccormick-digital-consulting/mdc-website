@@ -18,6 +18,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <!-- Lenis for Smooth Scroll -->
     <script src="https://unpkg.com/@studio-freight/lenis@1.0.35/dist/lenis.min.js"></script>
+    <!-- Three.js for 3D Flag -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
 <body>
 
@@ -42,13 +44,14 @@
             </div>
 
             <div class="hero-text-block">
-                <div class="reveal-box"><h1 class="hero-headline filled reveal-text">DIG<span class="pattern-amazigh">IT</span>AL.</h1></div>
-                <div class="reveal-box"><h1 class="hero-headline reveal-text">TR<span class="pattern-azulejo">AD</span>ES.</h1></div>
+                <div class="reveal-box"><h1 class="hero-headline filled reveal-text">CR<span class="pattern-amazigh">EA</span>TIVITY.</h1></div>
+                <div class="reveal-box"><h1 class="hero-headline reveal-text">LEADERSHIP.</h1></div>
+                <div class="reveal-box"><h1 class="hero-headline reveal-text"><span>BR<span class="pattern-azulejo">AN</span>DING.</span></h1></div>
             </div>
 
             <div class="sub-hero">
                 <div class="reveal-box">
-                    <p class="reveal-text">14 digital skills deployed under one roof. From ads to automation, design to development.<br>Every trade your business needs to dominate online.</p>
+                    <p class="reveal-text">15 digital trades deployed under one roof. From ads to automation, design to development.<br>Every skill your business needs to dominate online.</p>
                 </div>
                 <div class="reveal-box" style="padding-bottom: 20px;">
                     <a href="#trades" class="btn reveal-text" aria-label="View Digital Trades">View Our Trades</a>
@@ -56,12 +59,11 @@
             </div>
         </header>
 
-        <!-- KINETIC MARQUEE -->
-        <section class="marquee-wrapper" aria-label="Animated Services Marquee">
-            <div class="marquee-content" aria-hidden="true">
-                SEO • GOOGLE ADS • META ADS • MEDIA BUYING • COPYWRITING • EMAIL MARKETING • WEB DEV • GRAPHIC DESIGN •
-                SEO • GOOGLE ADS • META ADS • MEDIA BUYING • COPYWRITING • EMAIL MARKETING • WEB DEV • GRAPHIC DESIGN •
-            </div>
+        <!-- 3D TORN FLAG BANNER -->
+        <section class="flag-section" aria-label="Animated Digital Trades Banner">
+            <canvas id="flag-canvas"></canvas>
+            <!-- Accessible fallback text for screen readers -->
+            <span class="sr-only">SEO, Google Ads, Meta Ads, Media Buying, Copywriting, Email Marketing, Web Dev, Graphic Design</span>
         </section>
 
         <!-- DIGITAL TRADES -->
@@ -78,79 +80,85 @@
                 </article>
 
                 <article class="trade-card">
-                    <div class="trade-num" aria-hidden="true">02</div>
+                    <div class="trade-num" style="color: var(--accent-orange);" aria-hidden="true">02</div>
+                    <h3 class="trade-title">AEO</h3>
+                    <p class="trade-desc">Answer Engine Optimization. We engineer your brand to be cited and recommended by ChatGPT, Claude, and Perplexity.</p>
+                </article>
+
+                <article class="trade-card">
+                    <div class="trade-num" aria-hidden="true">03</div>
                     <h3 class="trade-title">Media Buying</h3>
                     <p class="trade-desc">Strategic ad placement across every major platform. We buy attention at scale and turn impressions into revenue.</p>
                 </article>
 
                 <article class="trade-card">
-                    <div class="trade-num" aria-hidden="true">03</div>
+                    <div class="trade-num" aria-hidden="true">04</div>
                     <h3 class="trade-title">Copywriting</h3>
                     <p class="trade-desc">Words that sell. Landing pages, ad copy, email sequences, and brand messaging engineered for conversion.</p>
                 </article>
 
                 <article class="trade-card">
-                    <div class="trade-num" aria-hidden="true">04</div>
+                    <div class="trade-num" aria-hidden="true">05</div>
                     <h3 class="trade-title">Google Ads</h3>
                     <p class="trade-desc">Search, Display, YouTube, Performance Max. We deploy a 14-day data loop to relentlessly hone your campaigns.</p>
                 </article>
 
                 <article class="trade-card">
-                    <div class="trade-num" aria-hidden="true">05</div>
+                    <div class="trade-num" aria-hidden="true">06</div>
                     <h3 class="trade-title">Bing Ads</h3>
                     <p class="trade-desc">Untapped intent at lower CPCs. We run Microsoft Advertising campaigns that your competitors are ignoring.</p>
                 </article>
 
                 <article class="trade-card">
-                    <div class="trade-num" style="color: var(--accent-orange);" aria-hidden="true">06</div>
+                    <div class="trade-num" style="color: var(--accent-orange);" aria-hidden="true">07</div>
                     <h3 class="trade-title">Meta Ads</h3>
                     <p class="trade-desc">Facebook and Instagram ad funnels built for scale. Retargeting, lookalikes, and creative testing that prints returns.</p>
                 </article>
 
                 <article class="trade-card">
-                    <div class="trade-num" aria-hidden="true">07</div>
+                    <div class="trade-num" aria-hidden="true">08</div>
                     <h3 class="trade-title">Social Media Marketing</h3>
                     <p class="trade-desc">Full organic management. Content calendars, community engagement, and growth strategies across every platform.</p>
                 </article>
 
                 <article class="trade-card">
-                    <div class="trade-num" aria-hidden="true">08</div>
+                    <div class="trade-num" aria-hidden="true">09</div>
                     <h3 class="trade-title">Bookkeeping</h3>
                     <p class="trade-desc">Clean books, clear picture. We handle your financial records so you can focus on growth instead of spreadsheets.</p>
                 </article>
 
                 <article class="trade-card">
-                    <div class="trade-num" aria-hidden="true">09</div>
+                    <div class="trade-num" aria-hidden="true">10</div>
                     <h3 class="trade-title">Graphic Design</h3>
                     <p class="trade-desc">Logos, brand assets, social graphics, pitch decks. Visual identity that commands attention and builds trust.</p>
                 </article>
 
                 <article class="trade-card">
-                    <div class="trade-num" aria-hidden="true">10</div>
+                    <div class="trade-num" aria-hidden="true">11</div>
                     <h3 class="trade-title">Excel Expert</h3>
                     <p class="trade-desc">Complex dashboards, data models, automation macros, and reporting systems that turn raw data into decisions.</p>
                 </article>
 
                 <article class="trade-card">
-                    <div class="trade-num" aria-hidden="true">11</div>
+                    <div class="trade-num" aria-hidden="true">12</div>
                     <h3 class="trade-title">Email Marketing</h3>
                     <p class="trade-desc">Automated sequences, newsletters, and campaign blasts. We build email engines that nurture leads and close deals.</p>
                 </article>
 
                 <article class="trade-card">
-                    <div class="trade-num" style="color: var(--accent-orange);" aria-hidden="true">12</div>
+                    <div class="trade-num" style="color: var(--accent-orange);" aria-hidden="true">13</div>
                     <h3 class="trade-title">Website Development</h3>
                     <p class="trade-desc">Fast, responsive, conversion-optimized websites. Built from scratch or rebuilt from whatever mess you have now.</p>
                 </article>
 
                 <article class="trade-card">
-                    <div class="trade-num" aria-hidden="true">13</div>
+                    <div class="trade-num" aria-hidden="true">14</div>
                     <h3 class="trade-title">Content Curator</h3>
                     <p class="trade-desc">We source, organize, and schedule content that keeps your brand relevant and your audience engaged daily.</p>
                 </article>
 
                 <article class="trade-card">
-                    <div class="trade-num" aria-hidden="true">14</div>
+                    <div class="trade-num" aria-hidden="true">15</div>
                     <h3 class="trade-title">Virtual Assistant</h3>
                     <p class="trade-desc">Inbox management, scheduling, research, CRM updates. Operational support so you can stay in the revenue zone.</p>
                 </article>
