@@ -191,18 +191,15 @@ document.addEventListener("DOMContentLoaded", () => {
             'BRANDING', 'STRATEGY', 'ANALYTICS', 'AUTOMATION',
         ];
 
-        // Draw single row - text sized to fill flag height, separated by |
-        const fontSize = Math.floor(texH * 0.52);
-        const sepSize = Math.floor(texH * 0.25);
+        // Draw single row - text fills flag height, tight kerning, no separators
+        const fontSize = Math.floor(texH * 0.50);
         ctx.font = '900 ' + fontSize + 'px Inter, Arial, sans-serif';
-        let xPos = 40;
+        ctx.letterSpacing = '-2px';
+        let xPos = 20;
         for (const word of wordList) {
             ctx.font = '900 ' + fontSize + 'px Inter, Arial, sans-serif';
             ctx.fillText(word, xPos, texH * 0.52);
-            xPos += ctx.measureText(word).width + 50;
-            // Simple thin vertical bar separator
-            ctx.fillRect(xPos, texH * 0.2, 6, texH * 0.6);
-            xPos += 50;
+            xPos += ctx.measureText(word).width + 120;
         }
 
         // Fabric noise texture
