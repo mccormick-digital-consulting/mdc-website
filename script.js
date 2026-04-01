@@ -193,7 +193,7 @@ document.addEventListener("DOMContentLoaded", () => {
         for (const word of wordList) {
             ctx.font = '900 ' + fontSize + 'px Inter, Arial, sans-serif';
             ctx.fillText(word, xPos, texH * 0.52);
-            xPos += ctx.measureText(word).width + 120;
+            xPos += ctx.measureText(word).width + 220;
         }
 
         // Fabric noise texture
