@@ -84,71 +84,155 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // 5. THREE.JS TORN FLAG CLOTH SIMULATION
+    // 5. THREE.JS WAR-TORN SCROLLING FLAG
     (function initFlag() {
         const canvas = document.getElementById('flag-canvas');
         if (!canvas || typeof THREE === 'undefined') return;
 
         const scene = new THREE.Scene();
         const rect = canvas.parentElement.getBoundingClientRect();
-        const camera = new THREE.PerspectiveCamera(30, rect.width / rect.height, 0.1, 1000);
-        camera.position.set(0, 0, 6);
+        const camera = new THREE.OrthographicCamera(
+            -rect.width / rect.height * 1.5, rect.width / rect.height * 1.5,
+            1.5, -1.5, 0.1, 100
+        );
+        camera.position.set(0, 0, 5);
 
         const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
         renderer.setSize(rect.width, rect.height);
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-        renderer.setClearColor(0x000000, 0);
+        renderer.setClearColor(0x050505, 1);
 
-        // Lighting
-        const ambient = new THREE.AmbientLight(0xffffff, 0.6);
+        const ambient = new THREE.AmbientLight(0xffffff, 0.7);
         scene.add(ambient);
-        const dirLight = new THREE.DirectionalLight(0xffffff, 0.8);
-        dirLight.position.set(2, 2, 5);
+        const dirLight = new THREE.DirectionalLight(0xffffff, 0.6);
+        dirLight.position.set(3, 2, 5);
         scene.add(dirLight);
 
-        // Flag geometry - extra wide horizontal banner filling viewport
-        const flagW = 12;
-        const flagH = 2.0;
-        const segsX = 100;
-        const segsY = 20;
+        // Flag fills entire viewport width with extra for scrolling
+        const aspect = rect.width / rect.height;
+        const flagH = 2.8;
+        const flagW = aspect * flagH * 3; // 3x viewport width for seamless scroll
+        const segsX = 200;
+        const segsY = 30;
         const geo = new THREE.PlaneGeometry(flagW, flagH, segsX, segsY);
 
-        // Create canvas texture with text - all 15 trades
+        // --- SCROLLING TEXTURE (extra wide for seamless tiling) ---
+        const texW = 8192;
+        const texH = 1024;
         const texCanvas = document.createElement('canvas');
-        texCanvas.width = 4096;
-        texCanvas.height = 512;
+        texCanvas.width = texW;
+        texCanvas.height = texH;
         const ctx = texCanvas.getContext('2d');
 
-        // Orange background
+        // Orange base
         ctx.fillStyle = '#FF4500';
-        ctx.fillRect(0, 0, texCanvas.width, texCanvas.height);
+        ctx.fillRect(0, 0, texW, texH);
 
-        // Torn edges - top (irregular ripped look)
+        // Torn edges top + bottom
         ctx.fillStyle = '#050505';
-        for (let x = 0; x < texCanvas.width; x += 6) {
-            const h = Math.random() * 30 + 6;
-            ctx.fillRect(x, 0, 6, h);
-        }
-        // Torn edges - bottom
-        for (let x = 0; x < texCanvas.width; x += 6) {
-            const h = Math.random() * 30 + 6;
-            ctx.fillRect(x, texCanvas.height - h, 6, h);
+        for (let x = 0; x < texW; x += 4) {
+            ctx.fillRect(x, 0, 4, Math.random() * 45 + 10);
+            ctx.fillRect(x, texH - (Math.random() * 45 + 10), 4, 60);
         }
 
-        // Text - Line 1 (top row of trades)
+        // War-torn holes (scattered transparent-looking burn marks)
+        const holeCount = 18;
+        for (let h = 0; h < holeCount; h++) {
+            const hx = Math.random() * texW;
+            const hy = 100 + Math.random() * (texH - 200);
+            const hw = 20 + Math.random() * 60;
+            const hh = 15 + Math.random() * 40;
+            // Dark hole
+            ctx.fillStyle = '#050505';
+            ctx.beginPath();
+            ctx.ellipse(hx, hy, hw, hh, Math.random() * Math.PI, 0, Math.PI * 2);
+            ctx.fill();
+            // Burnt edge ring
+            ctx.strokeStyle = '#8B2500';
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.ellipse(hx, hy, hw + 4, hh + 3, Math.random() * Math.PI, 0, Math.PI * 2);
+            ctx.stroke();
+        }
+
+        // Smaller tears/rips
+        for (let t = 0; t < 12; t++) {
+            ctx.strokeStyle = '#050505';
+            ctx.lineWidth = 2 + Math.random() * 4;
+            ctx.beginPath();
+            const sx = Math.random() * texW;
+            const sy = 80 + Math.random() * (texH - 160);
+            ctx.moveTo(sx, sy);
+            for (let s = 0; s < 4; s++) {
+                ctx.lineTo(sx + (Math.random() - 0.5) * 80, sy + (Math.random() - 0.5) * 50);
+            }
+            ctx.stroke();
+        }
+
+        // Main text - large, filling top to bottom
         ctx.fillStyle = '#050505';
-        ctx.font = '900 72px Inter, Arial, sans-serif';
-        ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
-        const line1 = 'SEO  \u2022  AEO  \u2022  MEDIA BUYING  \u2022  COPYWRITING  \u2022  GOOGLE ADS  \u2022  BING ADS  \u2022  META ADS  \u2022  SOCIAL MEDIA';
-        const line2 = 'BOOKKEEPING  \u2022  GRAPHIC DESIGN  \u2022  EXCEL  \u2022  EMAIL MARKETING  \u2022  WEB DEV  \u2022  CONTENT  \u2022  VIRTUAL ASSISTANT';
-        ctx.fillText(line1, texCanvas.width / 2, texCanvas.height * 0.38);
-        ctx.fillText(line2, texCanvas.width / 2, texCanvas.height * 0.64);
+        ctx.textAlign = 'left';
 
-        // Fabric noise
-        const imgData = ctx.getImageData(0, 0, texCanvas.width, texCanvas.height);
+        // English trade words (primary)
+        const engWords = [
+            'SEO', 'AEO', 'MEDIA BUYING', 'COPYWRITING', 'GOOGLE ADS', 'BING ADS',
+            'META ADS', 'SOCIAL MEDIA', 'BOOKKEEPING', 'GRAPHIC DESIGN', 'EXCEL',
+            'EMAIL MARKETING', 'WEB DEV', 'CONTENT', 'VIRTUAL ASSISTANT'
+        ];
+        // Multilingual sprinkles
+        const foreignWords = [
+            '\u062A\u0633\u0648\u064A\u0642',           // Arabic: Marketing
+            '\u0625\u0639\u0644\u0627\u0646\u0627\u062A', // Arabic: Ads
+            '\u30C7\u30B6\u30A4\u30F3',                   // Japanese: Design
+            '\u5E83\u544A',                                 // Japanese: Advertising
+            '\u8425\u9500',                                 // Chinese: Marketing
+            '\u7F51\u7AD9',                                 // Chinese: Website
+            '\u2D5C\u2D30\u2D4E\u2D53\u2D54\u2D5C',       // Berber: Commerce
+            '\u2D30\u2D4E\u2D30\u2D63\u2D49\u2D56',       // Berber: Amazigh
+            '\u041C\u0430\u0440\u043A\u0435\u0442\u0438\u043D\u0433', // Ukrainian: Marketing
+            '\u0420\u0435\u043A\u043B\u0430\u043C\u0430',             // Ukrainian: Advertising
+            '\u5275\u9020',                                 // Japanese: Creation
+            '\u0627\u0633\u062A\u0631\u0627\u062A\u064A\u062C\u064A\u0629' // Arabic: Strategy
+        ];
+
+        // Build long repeating text strip (3x wide for seamless scroll)
+        const allWords = [];
+        for (let rep = 0; rep < 3; rep++) {
+            for (let w = 0; w < engWords.length; w++) {
+                allWords.push(engWords[w]);
+                // Sprinkle foreign word every 3rd English word
+                if (w % 3 === 2 && foreignWords.length > 0) {
+                    allWords.push(foreignWords[(w + rep * 5) % foreignWords.length]);
+                }
+            }
+        }
+
+        // Row 1 - top half, large text
+        ctx.font = '900 110px Inter, Arial, sans-serif';
+        let xPos = 30;
+        const row1Words = allWords.slice(0, Math.floor(allWords.length / 2));
+        for (const word of row1Words) {
+            ctx.fillText(word, xPos, texH * 0.35);
+            xPos += ctx.measureText(word).width + 60;
+            // Bullet separator
+            ctx.fillText('\u2022', xPos - 40, texH * 0.35);
+        }
+
+        // Row 2 - bottom half, large text
+        ctx.font = '900 110px Inter, Arial, sans-serif';
+        xPos = 80;
+        const row2Words = allWords.slice(Math.floor(allWords.length / 2));
+        for (const word of row2Words) {
+            ctx.fillText(word, xPos, texH * 0.68);
+            xPos += ctx.measureText(word).width + 60;
+            ctx.fillText('\u2022', xPos - 40, texH * 0.68);
+        }
+
+        // Fabric noise texture
+        const imgData = ctx.getImageData(0, 0, texW, texH);
         for (let i = 0; i < imgData.data.length; i += 4) {
-            const noise = (Math.random() - 0.5) * 20;
+            const noise = (Math.random() - 0.5) * 18;
             imgData.data[i] += noise;
             imgData.data[i+1] += noise;
             imgData.data[i+2] += noise;
@@ -156,46 +240,45 @@ document.addEventListener("DOMContentLoaded", () => {
         ctx.putImageData(imgData, 0, 0);
 
         const texture = new THREE.CanvasTexture(texCanvas);
-        texture.wrapS = THREE.ClampToEdgeWrapping;
+        texture.wrapS = THREE.RepeatWrapping;
         texture.wrapT = THREE.ClampToEdgeWrapping;
+        texture.repeat.set(1, 1);
 
         const mat = new THREE.MeshStandardMaterial({
             map: texture,
             side: THREE.DoubleSide,
-            roughness: 0.8,
+            roughness: 0.85,
             metalness: 0.0,
         });
 
         const flag = new THREE.Mesh(geo, mat);
-        flag.rotation.x = 0.05;
+        flag.rotation.x = 0.06;
         scene.add(flag);
 
-        // Store original positions for wave animation
         const originalPositions = new Float32Array(geo.attributes.position.array);
-
         let time = 0;
+
         function animate() {
             requestAnimationFrame(animate);
-            time += 0.015;
+            time += 0.012;
+
+            // Scroll the texture horizontally
+            texture.offset.x = (time * 0.03) % 1.0;
 
             const pos = geo.attributes.position;
             for (let i = 0; i < pos.count; i++) {
                 const ox = originalPositions[i * 3];
                 const oy = originalPositions[i * 3 + 1];
-
-                // Normalize x position (0 to 1) for wave intensity
                 const nx = (ox + flagW / 2) / flagW;
 
-                // Multiple wave layers for realistic cloth movement
-                const wave1 = Math.sin(ox * 2.0 + time * 2.5) * 0.12 * nx;
-                const wave2 = Math.sin(ox * 3.5 + oy * 2.0 + time * 3.0) * 0.06 * nx;
-                const wave3 = Math.cos(ox * 1.5 + time * 1.8) * 0.04 * nx * nx;
-                const ripple = Math.sin(ox * 5.0 + oy * 3.0 + time * 4.0) * 0.02 * nx;
+                // Deep rolling waves
+                const wave1 = Math.sin(ox * 1.8 + time * 2.2) * 0.15;
+                const wave2 = Math.sin(ox * 3.0 + oy * 2.5 + time * 2.8) * 0.08;
+                const wave3 = Math.cos(ox * 1.2 + time * 1.5) * 0.06;
+                const ripple = Math.sin(ox * 6.0 + oy * 4.0 + time * 4.5) * 0.025;
 
                 pos.array[i * 3 + 2] = wave1 + wave2 + wave3 + ripple;
-
-                // Slight Y displacement for fluttering
-                pos.array[i * 3 + 1] = oy + Math.sin(ox * 2.0 + time * 2.0) * 0.02 * nx;
+                pos.array[i * 3 + 1] = oy + Math.sin(ox * 1.5 + time * 1.8) * 0.03;
             }
 
             pos.needsUpdate = true;
@@ -205,10 +288,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
         animate();
 
-        // Handle resize
         window.addEventListener('resize', () => {
             const r = canvas.parentElement.getBoundingClientRect();
-            camera.aspect = r.width / r.height;
+            const a = r.width / r.height;
+            camera.left = -a * 1.5;
+            camera.right = a * 1.5;
             camera.updateProjectionMatrix();
             renderer.setSize(r.width, r.height);
         });
