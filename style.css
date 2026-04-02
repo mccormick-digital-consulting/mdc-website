@@ -432,4 +432,11 @@ textarea.form-input {
     .srv-num { margin-bottom: 10px; }
     .sub-hero { flex-direction: column; align-items: flex-start; gap: 40px; }
     p.reveal-text { max-width: 100%; }
+    .grid-2 { grid-template-columns: 1fr !important; gap: 4vh !important; }
+}
+
+@media (max-width: 550px) {
+    .hero-headline {
+        font-size: clamp(2.6rem, 13vw, 4rem) !important;
+    }
 }
