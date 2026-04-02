@@ -46,6 +46,8 @@ body {
     line-height: 1.4;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
+    touch-action: pan-y;
+    -webkit-text-size-adjust: 100%;
 }
 
 .container {
@@ -232,12 +234,11 @@ p.reveal-text {
     position: relative;
     z-index: 10;
     overflow: hidden;
-    left: 50%;
-    transform: translateX(-50%);
+    margin-left: calc(-50vw + 50%);
 }
 
 #flag-canvas {
-    width: 100%;
+    width: 100vw;
     height: 100%;
     display: block;
 }
