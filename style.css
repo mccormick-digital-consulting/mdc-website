@@ -366,6 +366,106 @@ p.reveal-text {
     }
 }
 
+/* ===== HOW IT WORKS STEPS ===== */
+.steps-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--border);
+}
+
+.step-card {
+    background: var(--bg-primary);
+    padding: 3vw 2.5vw;
+    transition: background 0.4s;
+}
+
+.step-card:hover {
+    background: var(--bg-lighter);
+}
+
+.step-card:hover .step-title {
+    color: var(--accent-orange);
+}
+
+.step-num {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+    opacity: 0.5;
+}
+
+.step-title {
+    font-size: clamp(1.1rem, 2vw, 1.6rem);
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -0.03em;
+    margin-bottom: 0.8rem;
+    transition: color 0.4s;
+}
+
+.step-desc {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+@media (max-width: 900px) {
+    .steps-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 550px) {
+    .steps-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ===== WHO THIS IS FOR ===== */
+.niche-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: var(--border);
+}
+
+.niche-card {
+    background: var(--bg-primary);
+    padding: 3vw 2.5vw;
+    transition: background 0.4s;
+}
+
+.niche-card:hover {
+    background: var(--bg-lighter);
+}
+
+.niche-card:hover .niche-title {
+    color: var(--accent-orange);
+}
+
+.niche-title {
+    font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -0.03em;
+    margin-bottom: 0.8rem;
+    transition: color 0.4s;
+}
+
+.niche-desc {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+@media (max-width: 550px) {
+    .niche-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
 /* ===== BUTTONS ===== */
 .btn {
     display: inline-block;
@@ -424,6 +524,14 @@ textarea.form-input {
     resize: vertical;
 }
 
+/* ===== RESULT STATS ===== */
+.result-stat {
+    transition: border-color 0.3s ease;
+}
+.result-stat:hover {
+    border-color: var(--accent-orange) !important;
+}
+
 /* ===== MEDIA QUERIES ===== */
 @media (max-width: 900px) {
     .service-row {
@@ -434,10 +542,12 @@ textarea.form-input {
     .sub-hero { flex-direction: column; align-items: flex-start; gap: 40px; }
     p.reveal-text { max-width: 100%; }
     .grid-2 { grid-template-columns: 1fr !important; gap: 4vh !important; }
+    .results-grid { grid-template-columns: repeat(2, 1fr) !important; }
 }
 
 @media (max-width: 550px) {
     .hero-headline {
         font-size: clamp(2.6rem, 13vw, 4rem) !important;
     }
+    .results-grid { grid-template-columns: 1fr !important; }
 }
