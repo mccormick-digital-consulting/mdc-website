@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Received | McCormick Digital Consulting</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg-primary: #050505;
+            --bg-card: #0c0c0c;
+            --border: #222222;
+            --text-primary: #F4F4F4;
+            --text-secondary: #8A8A8A;
+            --accent-orange: #FF4500;
+            --accent-green: #22C55E;
+        }
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+        a { color: var(--accent-orange); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+
+        nav {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 20px 4vw; border-bottom: 1px solid var(--border);
+        }
+        .logo { font-weight: 900; font-size: 1.5rem; color: var(--text-primary); text-decoration: none; }
+
+        .container { max-width: 800px; margin: 0 auto; padding: 0 24px; }
+
+        /* Confirmation banner */
+        .confirm-banner {
+            text-align: center;
+            padding: 8vh 0 4vh;
+        }
+        .confirm-check {
+            width: 80px; height: 80px; border-radius: 50%;
+            background: var(--accent-green); display: inline-flex;
+            align-items: center; justify-content: center; margin-bottom: 24px;
+        }
+        .confirm-check svg { width: 40px; height: 40px; }
+        .confirm-banner h1 {
+            font-size: clamp(1.8rem, 4vw, 2.5rem); font-weight: 900;
+            text-transform: uppercase; letter-spacing: -0.02em; margin-bottom: 12px;
+        }
+        .confirm-banner p { color: var(--text-secondary); font-size: 1.05rem; max-width: 550px; margin: 0 auto; }
+
+        /* Timeline */
+        .timeline { padding: 6vh 0; }
+        .timeline h2 {
+            font-size: 1.6rem; font-weight: 900; text-transform: uppercase;
+            margin-bottom: 32px; letter-spacing: -0.02em;
+        }
+        .timeline-item {
+            display: flex; gap: 20px; margin-bottom: 32px; position: relative;
+        }
+        .timeline-marker {
+            flex-shrink: 0; width: 40px; height: 40px; border-radius: 50%;
+            background: var(--bg-card); border: 2px solid var(--border);
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 800; font-size: 0.85rem; color: var(--accent-orange);
+        }
+        .timeline-item.active .timeline-marker {
+            background: var(--accent-orange); color: #fff; border-color: var(--accent-orange);
+        }
+        .timeline-content h3 {
+            font-size: 1rem; font-weight: 700; margin-bottom: 4px;
+            text-transform: none; letter-spacing: 0;
+        }
+        .timeline-content p { color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; }
+        .timeline-content .time-tag {
+            display: inline-block; font-size: 0.75rem; color: var(--accent-orange);
+            text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px;
+        }
+
+        /* Intake form */
+        .intake-section {
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: 8px; padding: 40px; margin: 4vh 0 8vh;
+        }
+        .intake-section h2 {
+            font-size: 1.4rem; font-weight: 900; text-transform: uppercase;
+            margin-bottom: 8px; letter-spacing: -0.02em;
+        }
+        .intake-section > p { color: var(--text-secondary); margin-bottom: 32px; font-size: 0.95rem; }
+
+        .form-group { margin-bottom: 20px; }
+        .form-label {
+            display: block; margin-bottom: 8px; color: var(--text-secondary);
+            font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;
+        }
+        .form-input {
+            width: 100%; padding: 14px 16px; background: var(--bg-primary);
+            border: 1px solid var(--border); border-radius: 6px;
+            color: var(--text-primary); font-family: inherit; font-size: 1rem;
+            transition: border-color 0.2s;
+        }
+        .form-input:focus { outline: none; border-color: var(--accent-orange); }
+        .form-input::placeholder { color: #555; }
+        .help-box {
+            background: rgba(255,255,255,0.03); padding: 12px; border-radius: 6px;
+            margin-top: 8px; font-size: 0.8rem; color: var(--text-secondary); line-height: 1.6;
+        }
+        select.form-input { appearance: none; cursor: pointer; }
+        textarea.form-input { min-height: 100px; resize: vertical; }
+
+        .btn-submit {
+            display: block; width: 100%; padding: 16px; background: var(--accent-orange);
+            color: #fff; font-family: inherit; font-size: 1rem; font-weight: 700;
+            border: none; border-radius: 6px; cursor: pointer; text-transform: uppercase;
+            letter-spacing: 0.05em; transition: opacity 0.2s;
+        }
+        .btn-submit:hover { opacity: 0.9; }
+
+        .divider { height: 1px; background: var(--border); margin: 24px 0; }
+
+        /* Contact card */
+        .contact-card {
+            text-align: center; padding: 4vh 0 8vh;
+        }
+        .contact-card p { color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 8px; }
+        .contact-card a { font-size: 1.1rem; font-weight: 700; }
+
+        footer {
+            padding: 4vh 4vw; display: flex; justify-content: center;
+            border-top: 1px solid var(--border);
+            color: var(--text-secondary); font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="index.html" class="logo">MDC.</a>
+    </nav>
+
+    <div class="container">
+
+        <!-- CONFIRMATION BANNER -->
+        <div class="confirm-banner">
+            <div class="confirm-check">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+            </div>
+            <h1>Payment Received.</h1>
+            <p>You'll receive a Stripe receipt shortly. Here's what happens next and what we need from you to get started.</p>
+        </div>
+
+        <!-- WHAT HAPPENS NEXT TIMELINE -->
+        <div class="timeline">
+            <h2>Your Next 72 Hours</h2>
+
+            <div class="timeline-item active">
+                <div class="timeline-marker">1</div>
+                <div class="timeline-content">
+                    <span class="time-tag">Right now</span>
+                    <h3>Complete the Technical Intake Below</h3>
+                    <p>Give us access to your ad accounts and tell us about your business. This takes 5 minutes and lets us start building immediately.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-marker">2</div>
+                <div class="timeline-content">
+                    <span class="time-tag">Within 24 hours</span>
+                    <h3>Tracking Infrastructure Audit</h3>
+                    <p>We audit your current tracking setup (Meta Pixel, Conversions API, Google Ads tags, GA4) and identify what's missing. Most businesses are only capturing 40-60% of their actual conversions.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-marker">3</div>
+                <div class="timeline-content">
+                    <span class="time-tag">Within 48 hours</span>
+                    <h3>Campaign Architecture + AEO Optimization</h3>
+                    <p>We build your campaign structure, write ad copy, set up landing pages, and deploy your free AEO optimization so AI assistants start recommending your business.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-marker">4</div>
+                <div class="timeline-content">
+                    <span class="time-tag">Within 72 hours</span>
+                    <h3>Campaigns Go Live</h3>
+                    <p>Ads launch with proper conversion tracking, audience targeting, and creative assets. You get a launch report with projected performance benchmarks and our 14-day optimization schedule.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- TECHNICAL INTAKE FORM -->
+        <div class="intake-section">
+            <h2>Technical Intake Form</h2>
+            <p>Fill this out so we can start building your campaigns today. If you don't have some of these yet, we'll set them up for you.</p>
+
+            <form action="https://formspree.io/f/xpwzgqkr" method="POST">
+                <input type="hidden" name="_subject" value="New MDC Client - Technical Intake">
+
+                <h3 style="font-size: 0.8rem; color: var(--accent-orange); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 20px;">Business Info</h3>
+
+                <div class="form-group">
+                    <label class="form-label">Business Name</label>
+                    <input type="text" name="business_name" class="form-input" required placeholder="e.g., Scottsdale Dental Group">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Primary Contact Name</label>
+                    <input type="text" name="contact_name" class="form-input" required placeholder="John Doe">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Email</label>
+                    <input type="email" name="email" class="form-input" required placeholder="john@yourbusiness.com">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Phone</label>
+                    <input type="tel" name="phone" class="form-input" required placeholder="(555) 555-5555">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Website URL</label>
+                    <input type="url" name="website" class="form-input" required placeholder="https://yourbusiness.com">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Industry / Niche</label>
+                    <select name="niche" class="form-input" required>
+                        <option value="" disabled selected>Select your industry</option>
+                        <option value="Dental">Dental / Cosmetic Dentistry</option>
+                        <option value="Med Spa">Med Spa / Aesthetics</option>
+                        <option value="Home Services">Home Services (HVAC, Plumbing, Remodeling)</option>
+                        <option value="Hospitality">Boutique Hotels / Hospitality</option>
+                        <option value="Legal">Legal / Law Firm</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Target Location / Service Area</label>
+                    <input type="text" name="target_geo" class="form-input" required placeholder="e.g., 20-mile radius around Scottsdale, AZ">
+                </div>
+
+                <div class="divider"></div>
+                <h3 style="font-size: 0.8rem; color: var(--accent-orange); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 20px;">Ad Account Access</h3>
+
+                <div class="form-group">
+                    <label class="form-label">Google Ads Customer ID</label>
+                    <input type="text" name="google_ads_id" class="form-input" placeholder="XXX-XXX-XXXX (leave blank if you don't have one yet)">
+                    <div class="help-box">
+                        <strong>How to find this:</strong> Log into ads.google.com, look in the top right corner near your profile picture. It's a 10-digit number (format: XXX-XXX-XXXX). If you don't have a Google Ads account yet, leave this blank and we'll create one for you.
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Meta Business Manager ID</label>
+                    <input type="text" name="meta_bm_id" class="form-input" placeholder="15-digit number (leave blank if you don't have one yet)">
+                    <div class="help-box">
+                        <strong>How to find this:</strong> Go to business.facebook.com/settings, click "Business Info" in the left menu, and copy the Business Manager ID at the top. If you don't have one, leave this blank and we'll set it up.
+                    </div>
+                </div>
+
+                <div class="divider"></div>
+                <h3 style="font-size: 0.8rem; color: var(--accent-orange); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 20px;">Campaign Details</h3>
+
+                <div class="form-group">
+                    <label class="form-label">What services do you want to advertise?</label>
+                    <textarea name="services" class="form-input" placeholder="e.g., dental implants, Invisalign, teeth whitening, emergency dental..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Current monthly ad spend (if any)</label>
+                    <select name="current_spend" class="form-input">
+                        <option value="" disabled selected>Select range</option>
+                        <option value="None">Not currently running ads</option>
+                        <option value="Under $1,000">Under $1,000/month</option>
+                        <option value="$1,000-$3,000">$1,000-$3,000/month</option>
+                        <option value="$3,000-$5,000">$3,000-$5,000/month</option>
+                        <option value="$5,000+">$5,000+/month</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Brand Assets (optional)</label>
+                    <input type="url" name="brand_assets" class="form-input" placeholder="Google Drive or Dropbox link to logos, photos, brand guidelines">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Anything else we should know?</label>
+                    <textarea name="notes" class="form-input" placeholder="Competitors, past agency experiences, specific goals, seasonal patterns..."></textarea>
+                </div>
+
+                <div class="form-group" style="margin-top: 32px;">
+                    <button type="submit" class="btn-submit">Submit Intake & Start Building</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- DIRECT CONTACT -->
+        <div class="contact-card">
+            <p>Questions? Text or call directly:</p>
+            <a href="tel:+15129240343">(512) 924-0343</a>
+            <p style="margin-top: 12px;">or email <a href="mailto:shane@mccormickdigitalconsulting.com">shane@mccormickdigitalconsulting.com</a></p>
+        </div>
+
+    </div>
+
+    <footer>&copy; 2026 McCormick Digital Consulting</footer>
+
+</body>
+</html>
