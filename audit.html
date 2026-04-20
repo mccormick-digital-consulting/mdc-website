@@ -36,9 +36,6 @@
 
     <!-- AUDIT INTAKE FORM -->
     <main class="audit-container">
-        <!-- Floating Arabic Background Accent -->
-        <div class="bg-accent-arabic" style="top: -5vh; right: -5vw; font-size: 30vw; opacity: 0.02;">استراتيجية</div>
-
         <div style="position: relative; z-index: 2; width: 100%; max-width: 600px; text-align: center;">
             <span class="tag-accent" style="justify-content: center;">Exclusive Intake</span>
             <h1 class="massive-text" style="font-size: clamp(2.5rem, 6vw, 4rem); margin-bottom: 20px; color: var(--text-primary);">Request Strategic<br><span style="color: var(--accent-orange);">Audit</span></h1>
@@ -46,7 +43,9 @@
                 Submit your domain. Our team will review your architecture and return a brutally honest tactical audit to your inbox. 
             </p>
 
-            <form id="audit-form" class="contact-form" style="margin-top: 0;">
+            <form id="audit-form" class="contact-form" style="margin-top: 0;" action="https://formspree.io/f/mwvanonj" method="POST">
+                <input type="hidden" name="_subject" value="New Audit Request">
+                <input type="hidden" name="form_type" value="Audit Request">
                 <input type="text" name="name" id="field-name" class="form-input" placeholder="Your Name or Brand" required>
                 <input type="email" name="email" id="field-email" class="form-input" placeholder="Email Address" required>
                 <input type="text" name="domain" id="field-domain" class="form-input" placeholder="Current Domain (URL)">
@@ -66,18 +65,13 @@
                 btn.textContent = 'Sending...';
                 btn.disabled = true;
 
-                const data = {
-                    business_name: document.getElementById('field-name').value,
-                    email: document.getElementById('field-email').value,
-                    website: document.getElementById('field-domain').value,
-                    message: document.getElementById('field-message').value
-                };
+                const formData = new FormData(this);
 
                 try {
-                    const res = await fetch('https://crm.mccormickdigitalconsulting.com:8484/api/inquiry', {
+                    const res = await fetch('https://formspree.io/f/mwvanonj', {
                         method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(data)
+                        body: formData,
+                        headers: { 'Accept': 'application/json' }
                     });
                     if (res.ok) {
                         document.getElementById('audit-form').style.display = 'none';
