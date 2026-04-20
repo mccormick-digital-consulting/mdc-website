@@ -41,50 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // 4. Subtle Parallax for Foreign Accents (Japanese / Arabic Backgrounds)
-    const kanjiAccents = document.querySelectorAll('.bg-accent-kanji');
-    kanjiAccents.forEach((el) => {
-        gsap.to(el, {
-            y: -150,
-            ease: "none",
-            scrollTrigger: {
-                trigger: el.parentElement,
-                start: "top bottom",
-                end: "bottom top",
-                scrub: true
-            }
-        });
-    });
-
-    const arabicAccents = document.querySelectorAll('.bg-accent-arabic');
-    arabicAccents.forEach((el) => {
-        gsap.to(el, {
-            y: -250,
-            ease: "none",
-            scrollTrigger: {
-                trigger: el.parentElement,
-                start: "top bottom",
-                end: "bottom top",
-                scrub: true
-            }
-        });
-    });
-
-    const amazighAccents = document.querySelectorAll('.bg-accent-amazigh');
-    amazighAccents.forEach((el) => {
-        gsap.to(el, {
-            y: -200, // Slightly different speed for variation
-            ease: "none",
-            scrollTrigger: {
-                trigger: el.parentElement,
-                start: "top bottom",
-                end: "bottom top",
-                scrub: true
-            }
-        });
-    });
-
-    // 5. THREE.JS WAR-TORN SCROLLING FLAG
+    // 4. THREE.JS WAR-TORN SCROLLING FLAG
     (function initFlag() {
         const canvas = document.getElementById('flag-canvas');
         if (!canvas || typeof THREE === 'undefined') return;
@@ -140,49 +97,21 @@ document.addEventListener("DOMContentLoaded", () => {
         ctx.textBaseline = 'middle';
         ctx.textAlign = 'left';
 
-        // Full word list: English trades + specific multilingual swaps
-        // Copywriting = Japanese, Bing Ads = Berber, Media Buying = Chinese, Meta Ads = English
+        // Services word list - English only, focused on core offerings
         const wordList = [
-            'SEO', 'AEO',
-            '\u5A92\u4F53\u8D2D\u4E70',               // Chinese: Media Buying
-            '\u30B3\u30D4\u30FC\u30E9\u30A4\u30C6\u30A3\u30F3\u30B0', // Japanese: Copywriting
-            'GOOGLE ADS',
-            '\u062A\u0633\u0648\u064A\u0642',           // Arabic: Marketing
-            '\u2D31\u2D49\u2D4F\u2D33',                 // Berber: Bing
-            'META ADS', 'SOCIAL MEDIA',
-            '\u30C7\u30B6\u30A4\u30F3',                 // Japanese: Design
-            'BOOKKEEPING', 'GRAPHIC DESIGN', 'EXCEL',
-            '\u8425\u9500',                               // Chinese: Marketing
-            'EMAIL MARKETING', 'WEB DEV', 'CONTENT',
-            '\u2D5C\u2D30\u2D4E\u2D53\u2D54\u2D5C',     // Berber: Commerce
-            'VIRTUAL ASSISTANT', 'BRANDING', 'STRATEGY',
-            '\u041C\u0430\u0440\u043A\u0435\u0442\u0438\u043D\u0433', // Ukrainian: Marketing
-            'ANALYTICS', 'PPC', 'AUTOMATION',
-            '\u5E83\u544A',                               // Japanese: Advertising
-            'LEAD GEN', 'CRM', 'FUNNELS',
-            '\u0625\u0639\u0644\u0627\u0646\u0627\u062A', // Arabic: Ads
-            'RETARGETING', 'CONVERSION', 'ROI',
-            '\u7F51\u7AD9',                               // Chinese: Website
-            'LANDING PAGES', 'A/B TESTING', 'DATA',
-            '\u0420\u0435\u043A\u043B\u0430\u043C\u0430', // Ukrainian: Advertising
-            'CAMPAIGNS', 'CREATIVE', 'OUTREACH',
-            '\u5275\u9020',                               // Japanese: Creation
-            'CONSULTING', 'GROWTH', 'DIGITAL TRADES',
-            '\u0627\u0633\u062A\u0631\u0627\u062A\u064A\u062C\u064A\u0629', // Arabic: Strategy
-            'SEO',
-            '\u5A92\u4F53\u8D2D\u4E70',               // Chinese: Media Buying (repeat)
-            'GOOGLE ADS', 'META ADS',
-            '\u2D30\u2D4E\u2D30\u2D63\u2D49\u2D56',     // Berber: Amazigh
-            '\u30B3\u30D4\u30FC\u30E9\u30A4\u30C6\u30A3\u30F3\u30B0', // Japanese: Copywriting (repeat)
-            'EMAIL MARKETING', 'GRAPHIC DESIGN',
-            '\u521B\u610F',                               // Chinese: Creativity
-            'WEB DEV', 'SOCIAL MEDIA', 'AEO', 'BOOKKEEPING',
-            '\u0414\u0438\u0437\u0430\u0439\u043D',     // Ukrainian: Design
-            'VIRTUAL ASSISTANT',
-            '\u2D31\u2D49\u2D4F\u2D33',                 // Berber: Bing (repeat)
-            'CONTENT', 'EXCEL',
-            '\u30D3\u30B8\u30CD\u30B9',                 // Japanese: Business
-            'BRANDING', 'STRATEGY', 'ANALYTICS', 'AUTOMATION',
+            'GOOGLE ADS', 'META ADS', 'SEO', 'LANDING PAGES',
+            'LEAD GENERATION', 'CONVERSION TRACKING', 'LOCAL SEO',
+            'PERFORMANCE MAX', 'RETARGETING', 'A/B TESTING',
+            'COST PER LEAD', 'ROAS', 'GOOGLE ADS', 'META ADS',
+            'AEO', 'ANALYTICS', 'CAMPAIGNS', 'CREATIVE TESTING',
+            'DENTAL ADS', 'MED SPA ADS', 'HOME SERVICES ADS',
+            'EMAIL AUTOMATION', 'CRO', 'PPC', 'REPORTING',
+            'GOOGLE ADS', 'META ADS', 'SEO', 'LANDING PAGES',
+            'LEAD GENERATION', 'CONVERSION TRACKING', 'LOCAL SEO',
+            'PERFORMANCE MAX', 'RETARGETING', 'A/B TESTING',
+            'COST PER LEAD', 'ROAS', 'AEO', 'ANALYTICS',
+            'CAMPAIGNS', 'CREATIVE TESTING', 'DENTAL ADS',
+            'MED SPA ADS', 'HOME SERVICES ADS', 'PPC',
         ];
 
         // Draw single row - text fills flag height, tight kerning, no separators
