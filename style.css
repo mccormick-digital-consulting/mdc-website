@@ -550,4 +550,5 @@ textarea.form-input {
         font-size: clamp(2.6rem, 13vw, 4rem) !important;
     }
     .results-grid { grid-template-columns: 1fr !important; }
+    .cta-cards { grid-template-columns: 1fr !important; }
 }

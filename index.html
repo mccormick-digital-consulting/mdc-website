@@ -32,6 +32,7 @@
             <a href="blog/" style="color: var(--text-secondary); text-decoration: none; font-size: 0.85rem; letter-spacing: 0.05em; text-transform: uppercase;">Blog</a>
             <a href="tel:+15129240343" class="nav-phone" style="color: var(--text-secondary); text-decoration: none; font-size: 0.85rem; letter-spacing: 0.05em;">(512) 924-0343</a>
             <a href="audit.html" class="nav-cta" aria-label="Get a Free Ad Audit from MDC">Free Audit</a>
+            <a href="onboarding.html" style="padding: 8px 20px; background: var(--accent-orange); color: #fff; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; text-decoration: none; font-weight: 700;">Subscribe</a>
         </div>
     </nav>
 
@@ -53,8 +54,9 @@
                 <div class="reveal-box">
                     <p class="reveal-text">We build and manage Google & Meta ad campaigns that turn clicks into booked appointments.<br>Dental practices. Med spas. Home service companies. No long-term contracts.</p>
                 </div>
-                <div class="reveal-box" style="padding-bottom: 20px;">
+                <div class="reveal-box" style="padding-bottom: 20px; display: flex; gap: 15px; flex-wrap: wrap;">
                     <a href="audit.html" class="btn reveal-text" aria-label="Get Your Free Ad Audit">Get Your Free Audit</a>
+                    <a href="onboarding.html" class="btn reveal-text" style="background: var(--accent-orange); color: #fff; border-color: var(--accent-orange);" aria-label="Subscribe to MDC">Subscribe</a>
                 </div>
             </div>
         </header>
@@ -255,28 +257,24 @@
                 <div class="reveal-box"><p class="reveal-text" style="margin: 0 auto 5vh; text-align: center; max-width: 600px;">We take on a limited number of clients each quarter to ensure maximum execution quality.</p></div>
 
                 <!-- TWO CTA OPTIONS -->
-                <div style="display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; max-width: 800px; margin: 0 auto 4vh; align-items: stretch;">
+                <div class="cta-cards" style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; max-width: 800px; margin: 0 auto 4vh;">
 
                     <!-- FREE WEBSITE AUDIT -->
-                    <div style="flex: 1; min-width: 300px; max-width: 380px; display: flex;">
-                        <div style="border: 1px solid var(--border); border-radius: 8px; padding: 30px; text-align: center; display: flex; flex-direction: column; width: 100%;">
-                            <div style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-secondary); margin-bottom: 10px;">No commitment</div>
-                            <h3 style="font-size: 1.3rem; font-weight: 900; margin-bottom: 8px; text-transform: uppercase; letter-spacing: -0.02em;">Free Website Audit</h3>
-                            <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 20px; line-height: 1.6; flex: 1;">We analyze your website's SEO, ad presence, conversion tracking, and search visibility, then send you a detailed report showing exactly what can be improved.</p>
-                            <a href="audit.html" class="btn" style="display: block; border: 1px solid var(--accent-orange); background: transparent; color: var(--accent-orange); text-decoration: none; padding: 12px 24px;">Get Your Free Audit</a>
-                        </div>
+                    <div style="border: 1px solid var(--border); border-radius: 8px; padding: 30px; text-align: center; display: flex; flex-direction: column;">
+                        <div style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-secondary); margin-bottom: 10px;">No commitment</div>
+                        <h3 style="font-size: 1.3rem; font-weight: 900; margin-bottom: 8px; text-transform: uppercase; letter-spacing: -0.02em;">Free Website Audit</h3>
+                        <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 20px; line-height: 1.6; flex: 1;">We analyze your website's SEO, ad presence, conversion tracking, and search visibility, then send you a detailed report showing exactly what can be improved.</p>
+                        <a href="audit.html" class="btn" style="display: block; border: 1px solid var(--accent-orange); background: transparent; color: var(--accent-orange); text-decoration: none; padding: 12px 24px;">Get Your Free Audit</a>
                     </div>
 
                     <!-- SUBSCRIBE / ONBOARD -->
-                    <div style="flex: 1; min-width: 300px; max-width: 380px; display: flex; margin-top: 15px;">
-                        <div style="border: 2px solid var(--accent-orange); border-radius: 8px; padding: 30px; text-align: center; position: relative; display: flex; flex-direction: column; width: 100%; overflow: visible;">
-                            <div style="position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--accent-orange); color: #fff; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; padding: 4px 14px; border-radius: 3px; white-space: nowrap; z-index: 1;">Recommended</div>
-                            <div style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-secondary); margin-bottom: 10px;">Full management</div>
-                            <h3 style="font-size: 1.3rem; font-weight: 900; margin-bottom: 8px; text-transform: uppercase; letter-spacing: -0.02em;">Subscribe Now</h3>
-                            <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 10px; line-height: 1.6;">Google Ads + Meta Ads management, landing pages, conversion tracking, and ongoing optimization.</p>
-                            <p style="color: var(--accent-orange); font-size: 0.85rem; font-weight: 700; margin-bottom: 20px; flex: 1;">Includes free AEO optimization — we structure your site so AI assistants like ChatGPT and Claude recommend your business.</p>
-                            <a href="onboarding.html" class="btn" style="display: block; background: var(--accent-orange); color: #fff; text-decoration: none; padding: 12px 24px; border: none;">Subscribe — $3,000/mo</a>
-                        </div>
+                    <div style="border: 2px solid var(--accent-orange); border-radius: 8px; padding: 30px; text-align: center; display: flex; flex-direction: column; position: relative; margin-top: 14px;">
+                        <div style="position: absolute; top: -14px; left: 50%; transform: translateX(-50%); background: var(--accent-orange); color: #fff; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; padding: 4px 16px; border-radius: 3px;">Recommended</div>
+                        <div style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-secondary); margin-bottom: 10px;">Full management</div>
+                        <h3 style="font-size: 1.3rem; font-weight: 900; margin-bottom: 8px; text-transform: uppercase; letter-spacing: -0.02em;">Subscribe Now</h3>
+                        <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 10px; line-height: 1.6;">Google Ads + Meta Ads management, landing pages, conversion tracking, and ongoing optimization.</p>
+                        <p style="color: var(--accent-orange); font-size: 0.85rem; font-weight: 700; margin-bottom: 20px; flex: 1;">Includes free AEO optimization — we structure your site so AI assistants like ChatGPT and Claude recommend your business.</p>
+                        <a href="onboarding.html" class="btn" style="display: block; background: var(--accent-orange); color: #fff; text-decoration: none; padding: 12px 24px; border: none;">Subscribe</a>
                     </div>
                 </div>
             </div>
